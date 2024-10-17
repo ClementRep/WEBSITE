@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Clement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --platinum: #dcdcdd;
+            --french-gray: #c5c3c6;
+            --outer-space: #46494c;
+            --paynes-gray: #4c5c68;
+            --blue-munsell: #1985a1;
+            --sun-color: #f39c12;
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            background-color: var(--outer-space);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .Profilepic img {
+            border-radius: 50%;
+            margin-top: -100px; /* Adjust positioning */
+        }
+
+        .Text-intro {
+            text-align: center;
+            color: white;
+            margin: 20px;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+
+        @-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 10px #6a5acd, 0 0 20px #6a5acd, 0 0 30px #483d8b; /* Slate Blue shades */
+    }
+    to {
+        text-shadow: 0 0 20px #b0e0e6, 0 0 30px #b0e0e6; /* Powder Blue */
+    }
+}
+
+
+        .Text-intro h1 {
+            font-size: 2.5em; /* Responsive font size */
+        }
+
+        .sidebar {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: var(--sun-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            margin-top: -30px; /* Adjust positioning */
+            animation: fadeIn 1s ease-in;
+        }
+
+        .sidebar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 2, 2, 0.3);
+        }
+
+        .sun-item {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-color: var(--paynes-gray);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .sidebar:hover .sun-item {
+            opacity: 1;
+            box-shadow: 0 8px 30px rgb(9, 255, 1);
+        }
+
+        .item1 { transform: translate(0%, -240%); }
+        .item2 { transform: translate(-250%, -60%); }
+        .item3 { transform: translate(120%, -170%); }
+        .item4 { transform: translate(0%, 160%); }
+        .item5 { transform: translate(270%, 0%); }
+
+        @media (max-width: 600px) {
+            .Text-intro h1 {
+                font-size: 1.8em; /* Smaller font size for mobile */
+            }
+
+            .sidebar {
+                width: 80px;
+                height: 80px;
+            }
+
+            .sun-item {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .Text-intro h1 {
+                font-size: 1.5em; /* Even smaller font size for very small screens */
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--french-gray);
+            color: #333;
+            padding: 20px;
+            text-align: center; 
+            border-top: 2px solid #ccc; 
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            margin: 0 auto; 
+        }
+
+        .footer p {
+            margin: 0; 
+        }
+
+        .social-links {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 10px 0 0; 
+            display: flex;
+            justify-content: center; 
+        }
+
+        .social-links li {
+            margin: 0 15px; 
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: inherit; 
+            transition: color 0.3s; 
+        }
+
+        .social-links a:hover {
+            color: #007BFF; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="Profilepic">
+        <img src="IMG.jpg" width="200px" height="200px" alt="Profile Picture">
+    </div> 
+
+    <div class="Text-intro">
+        <h1>
+            Welcome! I'm Clement,<br>
+            a dedicated Developer<br>
+            creating impactful digital experiences.
+        </h1>
+    </div>
+    
+    <div class="sidebar" id="sun" tabindex="0">
+        <i class="fa fa-sun" aria-hidden="true" style="color: white; font-size: 30px;"></i>
+        <div class="sun-item item1"><a href="#Home" style="text-decoration:none; color:white;">Home</a></div>
+        <div class="sun-item item2"><a href="Skills.html" style="text-decoration:none; color:white;">Skills</a></div>
+        <div class="sun-item item3"><a href="Projects.html" style="text-decoration:none; color:white;">Projects</a></div>
+        <div class="sun-item item4"><a href="Contacts.html" style="text-decoration:none; color:white;">Contacts</a></div>
+        <div class="sun-item item5"><a href="About.html" style="text-decoration:none; color:white;">About</a></div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Clement. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://twitter.com/yourprofile" target="_blank">Twitter</a></li>
+                <li><a href="https://www.linkedin.com/in/tshwaraganang-clement-maimane-231b7a1b7" target="_blank">LinkedIn</a></li>
+                <li><a href="https://github.com/ClementRep/" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

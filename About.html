@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+
+    <style>
+        :root {
+            --perspective: 1000px;
+            --link-color: #010790;
+            --platinum: #dcdcddff;
+            --french-gray: #c5c3c6ff;
+            --outer-space: #46494cff;
+            --blue-munsell: #1985a1ff;
+            --background-color: #1c1c1c;
+            --card-background: #333;
+            --hover-color: #007BFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Sixtyfour Convergence", sans-serif;
+            font-size: calc(0.65em + 0.05vw);
+            background-color: var(--background-color);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body takes full height */
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        a {
+            color: var(--link-color);
+            font-weight: bold;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--hover-color);
+        }
+
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 7.5px;
+            text-align: center;
+            margin: 20px 0;
+            color: black;
+        }
+
+        h2 {
+    font-family: 'Pontano Sans', sans-serif; /* Match your description's font */
+    font-size: 1.5em; /* Adjust size as needed */
+    text-align: center;
+    margin-bottom: 10px; /* Add spacing */
+    color: black; /* Color to match your theme */
+}
+
+        .nav {
+            background-color: var(--french-gray);
+            border-radius: 12px;
+            margin: 20px;
+        }
+
+        .nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        .nav li {
+            margin: 0 15px;
+        }
+
+        .nav a {
+            color: var(--blue-munsell);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 12px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: var(--blue-munsell);
+            color: white;
+        }
+        .book {
+            display: block;
+            position: relative;
+            width: 320px;
+            height: 453px;
+            margin: 2rem auto; /* Margin for spacing */
+        }
+
+        .cover {
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            z-index: 100;
+            transition: transform 0.5s;
+            transform-origin: left center;
+            backface-visibility: hidden;
+            background-color: var(--card-background);
+            border-radius: 10px;
+        }
+
+        .description {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: inherit;
+            height: inherit;
+            border: solid 1px grey;
+            background: white;
+            transition: all 1s;
+            padding: 10% 10%;
+            padding-top: 5%;
+            z-index: 1;
+            border-radius: 10px;
+        }
+
+        .description h1 {
+            font-family: 'Pontano Sans', sans-serif;
+            font-size: calc(0.75em + 0.1vw);
+            text-align: center;
+            line-height: 1.25em;
+        }
+
+        .description p {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            justify-content: space-around;
+            color: black;
+        }
+
+        .book:hover {
+            cursor: pointer;
+            transform: translateX(0);
+        }
+
+        .book:hover .cover {
+            transform: perspective(var(--perspective)) rotateY(-90deg);
+        }
+
+        .book:hover .description {
+            transform: translateX(5%);
+            box-shadow:0 8px 30px rgba(255, 0, 0, 0.3);;
+        }
+
+        @media screen and (max-width: 600px) {
+            .book {
+                width: 90%;
+            }
+
+            .nav ul {
+                flex-direction: column;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--french-gray);
+            color: #333;
+            padding: 20px;
+            text-align: center; 
+            border-top: 2px solid #ccc; 
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        .footer-content {
+            width: 100%;
+            margin: 0 auto; 
+        }
+
+        .footer p {
+            margin: 0; 
+            font-family: "Sixtyfour Convergence", sans-serif;
+        }
+
+        .social-links {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 10px 0 0; 
+            display: flex;
+            justify-content: center; 
+        }
+
+        .social-links li {
+            margin: 0 15px; 
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: inherit; 
+            transition: color 0.3s; 
+        }
+
+        .social-links a:hover {
+            color: #007BFF; 
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li><a href="Index.html">Homepage</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Skills.html">Skills</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Contacts.html">Contact</a></li>
+          
+        </ul>
+      </div>
+
+      <div id="Clementstail" class="book">
+        <div class="cover">
+            <div class="description">
+                <h2>"Code and Creativity: The Journey of a Programmer"</h2> <!-- Book Title -->
+                <hr>
+                <p>In "Code and Creativity," embark on a compelling journey through the life of a passionate programmer who transforms ideas into reality through the art of coding. This insightful narrative delves into the challenges and triumphs faced in the ever-evolving tech landscape.
+                From the early fascination with computers to mastering complex algorithms, the book captures the essence of a programmer's life—balancing technical skill with creativity. Readers will explore the process of problem-solving, the joy of debugging, and the thrill of building innovative software solutions.
+                With anecdotes that illustrate the daily grind and moments of inspiration, this book offers a unique perspective on the programmer's mindset. Whether you're a seasoned developer or an aspiring coder, "Code and Creativity" provides valuable lessons in perseverance, collaboration, and the endless possibilities that coding can bring.
+                Join this programmer as they navigate the world of technology, fueled by curiosity and a relentless drive to learn.
+                </p>
+            </div>
+        </div>
+        <div class="description">
+            <h1>About Me</h1>       
+            <hr>
+            <p>
+                I hold a diploma in Information Technology with a specialization in Software Development. I am proficient in creating seamlessly responsive front-end web applications, utilizing technologies such as Java, React, HTML, CSS, and frameworks like Bootstrap and Tailwind CSS.
+    
+                In addition to my development skills, I have earned two certifications in Power BI, which have equipped me with expertise in data analysis. My training in Microsoft DP-203 has provided me with hands-on experience in Azure Synapse and Fabric, where I have developed skills in engineering data, as well as designing ETL and ELT pipelines.
+    
+                I am passionate about leveraging technology to solve complex problems and create user-centric applications.</p>
+        <br>
+        <br>
+        <br>
+        
+                <img src="Wallpaper2.jpg" width="70px" height="70px" style="border-radius: 50%;"/>&nbsp &nbsp &nbsp
+                <img src="Wallpaper3.jpg" width="70px" height="70px" style="border-radius: 50%;"/>&nbsp &nbsp &nbsp
+                <img src="IMG.jpg" width="70px" height="70px" style="border-radius: 50%;"/>
+            </div>
+
+     
+    </div>
+    
+
+  <footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Clement. All rights reserved.</p>
+        <ul class="social-links">
+            <li><a href="https://twitter.com/yourprofile" target="_blank">Twitter</a></li>
+            <li><a href="https:www.linkedin.com/in/tshwaraganang-clement-maimane-231b7a1b7" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/ClementRep/" target="_blank">GitHub</a></li>
+        </ul>
+    </div>
+  </footer>
+</body>
+</html>

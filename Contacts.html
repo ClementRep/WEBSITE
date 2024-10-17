@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <style>
+        :root {
+            --platinum: #dcdcddff;
+            --french-gray: #c5c3c6ff;
+            --blue-munsell: #1985a1ff;
+            --link-color: #007BFF;
+            --hover-color: #0056b3;
+            --button-color: #5cb85c;
+            --button-hover: #4cae4c;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Full height */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            animation: fadeIn 1s ease-in; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            animation: slideIn 0.5s forwards; 
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px auto; 
+            max-width: 400px; 
+            animation: bounceIn 0.5s forwards; 
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            60% { opacity: 1; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--blue-munsell);
+            outline: none;
+            box-shadow: 0 0 5px rgba(25, 133, 161, 0.5); 
+        }
+
+        button {
+            background-color: var(--button-color);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s; 
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: var(--french-gray);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px;
+            text-align: center; 
+            animation: fadeIn 0.5s forwards; 
+            opacity: 0;
+        }
+
+        .nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .nav li {
+            margin: 0 15px; 
+        }
+
+        .nav a {
+            color: var(--link-color);
+            font-weight: bold;
+            transition: color 0.3s, transform 0.3s; 
+        }
+
+        .nav a:hover {
+            color: var(--hover-color);
+            transform: scale(1.1);
+        }
+        @media screen and (max-width: 600px) {
+            .book {
+                width: 90%;
+            }
+
+            .nav ul {
+                flex-direction: column;
+            }
+        }
+
+        .footer {
+            background-color: var(--french-gray);
+            color: #333;
+            padding: 20px;
+            text-align: center; 
+            border-top: 2px solid #ccc; 
+            margin-top: auto; 
+        }
+
+        .footer-content {
+            width: 100%;
+            margin: 0 auto; 
+        }
+
+        .footer p {
+            margin: 0; 
+            font-family: "Sixtyfour Convergence", sans-serif;
+        }
+
+        .social-links {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 10px 0 0; 
+            display: flex;
+            justify-content: center; 
+        }
+
+        .social-links li {
+            margin: 0 15px; 
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: inherit; 
+            transition: color 0.3s; 
+        }
+
+        .social-links a:hover {
+            color: #007BFF; 
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <ul>
+            <li><a href="Index.html">Homepage</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Skills.html">Skills</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Contacts.html">Contact</a></li>
+        </ul>
+    </div>
+    
+    <h1>Contact Me</h1>
+    <form action="mailto:tshwaraganangmaimane25@gmail.com" enctype="text/plain" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Clement. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://twitter.com/yourprofile" target="_blank">Twitter</a></li>
+                <li><a href="https://www.linkedin.com/in/tshwaraganang-clement-maimane-231b7a1b7" target="_blank">LinkedIn</a></li>
+                <li><a href="https://github.com/ClementRep/" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

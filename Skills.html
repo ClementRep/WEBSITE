@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills</title>
+    <style>
+        :root {
+            --platinum: #dcdcddff;
+            --french-gray: #c5c3c6ff;
+            --blue-munsell: #1985a1ff;
+            --background-color: #1c1c1c; 
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 60px;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 200px; 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-15px); 
+            box-shadow: 0 8px 30px rgba(23, 255, 2, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .nav {
+            background-color: var(--french-gray);
+            border-radius: 12px;
+            margin: 20px;
+        }
+
+        .nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        .nav li {
+            margin: 0 15px;
+        }
+
+        .nav a {
+            color: var(--blue-munsell);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 8px 12px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: var(blue);
+            color: var(blue);
+        }
+        @media screen and (max-width: 600px) {
+            .book {
+                width: 90%;
+            }
+
+            .nav ul {
+                flex-direction: column;
+            }
+        }
+        .footer {
+            background-color: var(--french-gray);
+            color: #333;
+            padding: 20px;
+            text-align: center; 
+            border-top: 2px solid #ccc; 
+            margin-top: 335px; 
+        }
+
+        .footer-content {
+            width: 100%;
+            margin: 0 auto; 
+        }
+
+        .footer p {
+            margin: 0; 
+            font-family: "Sixtyfour Convergence", sans-serif;
+        }
+
+        .social-links {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 10px 0 0; 
+            display: flex;
+            justify-content: center; 
+        }
+
+        .social-links li {
+            margin: 0 15px; 
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: inherit; 
+            transition: color 0.3s; 
+        }
+
+        .social-links a:hover {
+            color: #007BFF; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <ul>
+            <li><a href="Index.html">Homepage</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="Skills.html">Skills</a></li>
+            <li><a href="About.html">About</a></li>
+            <li><a href="Contacts.html">Contacts</a></li>
+        </ul>
+    </div>
+
+    <div class="skills">
+        <div class="card">
+            <h3>Soft Skills</h3>
+            <ul>
+                <li>Communication</li>
+                <li>Teamwork</li>
+                <li>Problem-solving</li>
+                <li>Adaptability</li>
+                <li>Eagerness to Learn</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Hard Skills</h3>
+            <ul>
+                <li>JavaScript</li>
+                <li>HTML/CSS</li>
+                <li>Python</li>
+                <li>React</li>
+                <li>Java</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Clement. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="https://twitter.com/yourprofile" target="_blank">Twitter</a></li>
+                <li><a href="https://www.linkedin.com/in/tshwaraganang-clement-maimane-231b7a1b7" target="_blank">LinkedIn</a></li>
+                <li><a href="https://github.com/ClementRep/" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

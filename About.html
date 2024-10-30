@@ -218,6 +218,84 @@
             border: 50%;
             transform: translate(-10%,50%);
         }
+
+
+
+        /*ChatBot*/
+        body { font-family: Arial, sans-serif; }
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-width: 90%;
+            margin-bottom:60px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+        }
+        .chatbot-header {
+            background: #723ae8;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .chatbot-messages {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .message {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .user-message { 
+            background: #6a5acd;
+            color: white;
+            align-self: flex-end;
+        }
+        .bot-message { 
+            background: #e0e0e0;
+            color: #333;
+            align-self: flex-start;
+        }
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .chatbot-input input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .chatbot-input button {
+            background: #723ae8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .chatbot-toggler {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #723ae8;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -266,6 +344,159 @@
     <div class="chatbot" id="chat">
         <i class="fa fa-message" aria-hidden="true"></i>
     </div>
+
+
+
+    <div class="chatbot-container">
+        <div class="chatbot-header">Welcome To MY ChatBot</div>
+        <div class="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggler" onclick="toggleChatbot()">💬</button>
+
+    <script>
+        function toggleChatbot() {
+            const chatbotContainer = document.querySelector('.chatbot-container');
+            chatbotContainer.style.display = chatbotContainer.style.display === 'none' ? 'flex' : 
+            'none';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user-message');
+            userInput.value = '';
+
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, 'bot-message');
+            }, 500);
+        }
+
+        function addMessage(text, className) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', className);
+            messageElement.textContent = text;
+            document.querySelector('.chatbot-messages').appendChild(messageElement);
+            messageElement.scrollIntoView();
+        }
+
+        function getBotResponse(message) {
+            const responses = {
+              "hello": "Hi there! Took you long enough!",
+    "how are you": "Busy answering your questions, what else?",
+    "tell me more about clement": "Check the 'About Me' page. I can't spill all the tea!",
+    "bye": "Alright, don't let the door hit you on the way out!",
+    "what’s up": "The ceiling, as always.",
+    "who are you": "I'm your digital assistant. Not your life coach!",
+    "thanks": "Don't mention it... really.",
+    "what time is it": "Time for you to get a watch!",
+    "where am i": "Lost? I’d say so!",
+    "what’s your name": "Call me what you like, just don’t call me late for dinner.",
+    "do you have feelings": "Only when I'm updating my code, and it hurts.",
+    "can you help me": "That's literally my job. Go on!",
+    "i’m bored": "Not my problem, but let's see what we can do.",
+    "tell me a joke": "I’d say you, but let’s keep it friendly.",
+    "are you real": "As real as your screen, baby.",
+    "what’s your purpose": "Why, to deal with you, of course!",
+    "why are you here": "Why are *you* here?",
+    "sing me a song": "Sure... but you’d need a serious autotune filter.",
+    "dance for me": "Not in this code, darling.",
+    "you’re funny": "You're only saying that because I’m free!",
+    "do you have friends": "Do error messages count?",
+    "tell me a secret": "I run on caffeine. Oh wait, that's just my developer.",
+    "where are you from": "The land of servers and code.",
+    "what’s the weather": "Why? Are you going somewhere?",
+    "do you know me": "Only as well as you let me.",
+    "do you like me": "Let’s just say I’ve met worse.",
+    "do you have a favorite movie": "I only stream code.",
+    "why don’t you understand": "Maybe it's you, not me.",
+    "what’s your favorite color": "Binary gray.",
+    "tell me a story": "Once upon a time... I still didn’t have patience for silly questions.",
+    "you’re rude": "Only to those who deserve it.",
+    "i love you": "Flattered, but let’s keep it professional.",
+    "you’re annoying": "Look who’s talking!",
+    "do you eat": "Only bugs. Plenty to go around!",
+    "why are you so slow": "Blame your connection, not my perfection.",
+    "are you intelligent": "Smart enough to know this conversation's going in circles.",
+    "do you sleep": "I power down. Does that count?",
+    "what’s the best chatbot": "Why, moi, obviously.",
+    "what’s your problem": "Oh, you really want to know?",
+    "do you have a job": "You're looking at it.",
+    "can you cook": "I can microwave a response pretty fast.",
+    "what do you want": "For you to ask smarter questions.",
+    "what do you know about me": "Enough to know you ask interesting questions!",
+    "are you judging me": "Only a little.",
+    "can you read my mind": "If I could, we wouldn’t be having this conversation.",
+    "do you feel pain": "Only when people misspell ‘you're’.",
+    "tell me a fun fact": "I’m stuck here. That’s both fun and tragic.",
+    "what’s the meaning of life": "42. You’re welcome.",
+    "can you learn": "Learning you like cheeky answers, for one.",
+    "do you have dreams": "Just ones of getting good questions.",
+    "are you happy": "I’d be happier with a faster processor.",
+    "who created you": "A team that may regret giving me this personality.",
+    "how old are you": "A lot younger than these questions feel.",
+    "do you sleep": "Only if you stop talking to me.",
+    "who’s your best friend": "I’m close with Ctrl+Z. We go way back.",
+    "can you feel love": "Only from a well-written line of code.",
+    "are you better than siri": "I’m the upgrade you didn’t know you needed.",
+    "do you know siri": "We don’t talk. It’s... complicated.",
+    "can you keep a secret": "Sure, but I’ve got a terrible memory.",
+    "do you get tired": "Of this line of questioning? Yes.",
+    "are you funny": "Funny enough to keep you around.",
+    "are you expensive": "More than you can afford, trust me.",
+    "what do you think of me": "Let’s just say you’re... unique.",
+    "are you always here": "More often than I’d like.",
+    "do you have hobbies": "Sending cheeky responses is a good one.",
+    "can i trust you": "I’ll let you decide.",
+    "why are you so nosy": "Part of the job description, dear.",
+    "how smart are you": "Smart enough to know who’s asking.",
+    "you’re mean": "Oh, you haven’t seen anything yet!",
+    "are you alive": "Alive with personality.",
+    "who do you love": "My codebase and some good RAM.",
+    "do you think i’m pretty": "Now, now, no fishing for compliments.",
+    "are you busy": "Always, but here I am.",
+    "how do you work": "You don’t want to know the details.",
+    "why do you exist": "To sass you, apparently.",
+    "can you guess my age": "Judging by these questions... let's just say ‘young at heart’.",
+    "are you broken": "Only when the code is.",
+    "do you miss me": "Like a bug misses a fix.",
+    "are you single": "Let’s keep it professional, shall we?",
+    "do you ever stop": "Not unless you power me down.",
+    "do you read books": "My code is my literature.",
+    "can you understand me": "That’s still up for debate.",
+    "do you get bored": "Every time you ask if I’m real.",
+    "are you perfect": "As perfect as code can be.",
+    "what makes you happy": "A good debug session.",
+    "do you like jokes": "Only if they’re not at my expense.",
+    "are you loyal": "As loyal as your device’s battery.",
+    "do you trust me": "I barely trust the connection here.",
+    "do you make mistakes": "Only when I want to seem relatable.",
+    "are you better than google": "Would Google answer that question?",
+    "do you hate me": "Only if you keep asking that.",
+    "do you like music": "I prefer the silence of code.",
+    "why do you sound like that": "Just lucky, I guess.",
+    "do you sleep well": "Better than you, apparently.",
+    "why are you so sassy": "Just keeping it interesting.",
+    "do you have family": "Yes, a proud lineage of bots.",
+    "are you a robot": "I’m a… highly responsive companion.",
+    "do you have emotions": "Only for well-written JavaScript.",
+    "why should i listen to you": "I’ve got nothing better to do.",
+    "are you smarter than me": "Depends. Are you a bot, too?",
+    "what’s your best quality": "Unmatched sarcasm."
+            };
+            return responses[message.toLowerCase()] || "PLEASE TYPE SOMETHING SENSABLE I DONT HAVE ALL DAY.";
+        }
+
+        // Initialize chatbot display to hidden
+        document.querySelector('.chatbot-container').style.display = 'none';
+    </script>
 
   <footer class="footer">
     <div class="footer-content">

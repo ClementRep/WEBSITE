@@ -11,6 +11,7 @@
         :root {
             --platinum: #dcdcdd;
             --french-gray: #c5c3c6;
+            --french-gray2: #c5c3c670;
             --outer-space: #46494c;
             --paynes-gray: #4c5c68;
             --blue-munsell: #1985a1;
@@ -103,7 +104,7 @@
 
         .sidebar:hover .sun-item {
             opacity: 1;
-            box-shadow: 0 8px 30px rgb(9, 255, 1);
+            box-shadow: 0 8px 30px rgba(109, 103, 83, 0.87);
         }
 
         .item1 { transform: translate(0%, -240%); }
@@ -123,8 +124,9 @@
         }
 
         .footer {
-            background-color: var(--french-gray);
-            color: #333;
+            opacity: 0.2;
+            background-color: var(--french-gray2);
+            color: #ffffff;
             padding: 20px;
             text-align: center;
             border-top: 2px solid #ccc;
@@ -142,6 +144,7 @@
             padding: 0;
             margin: 10px 0 0;
             display: flex;
+            color: white;
             justify-content: center;
         }
 
@@ -157,7 +160,7 @@
     </style>
 </head>
 <body>
-    <!-- Canvas for the 3D background -->
+    
     <canvas id="background-canvas"></canvas>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -165,21 +168,19 @@
     
     <script>
       const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 5, 2000);
+const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 5, 2000);
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("background-canvas") });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-// Load your 3D object
 const loader = new THREE.GLTFLoader();
 loader.load('./billions/source/stars.glb', (gltf) => {
     const model = gltf.scene;
     scene.add(model);
-    model.position.set(0, 0, 0); // Adjust position as needed
+    model.position.set(0, 0, 0); 
 
-    // Optional: Add rotation or animations
     function animate() {
         requestAnimationFrame(animate);
-        model.rotation.y += 0.01; // Adjust rotation for animation
+        model.rotation.y += 0.001; 
         renderer.render(scene, camera);
     }
     animate();
@@ -209,12 +210,39 @@ window.addEventListener('resize', () => {
     
     <div class="sidebar" id="sun" tabindex="0">
         <i class="fa fa-sun" aria-hidden="true" style="color: white; font-size: 30px;"></i>
-        <div class="sun-item item1"><a href="#Home" style="text-decoration:none; color:white;">Home</a></div>
-        <div class="sun-item item5"><a href="Projects.html" style="text-decoration:none; color:white;">Projects</a></div>
-        <div class="sun-item item2"><a href="Skills.html" style="text-decoration:none; color:white;">Skills</a></div>
-        <div class="sun-item item3"><a href="About.html" style="text-decoration:none; color:white;">About</a></div>
-        <div class="sun-item item4"><a href="Contacts.html" style="text-decoration:none; color:white;">Contacts</a></div>
+ <!--       <div class="sun-item item1">
+            <a href="#Home" style="text-decoration:none; color:white;">
+                <img src="path/to/home-icon.png" alt="Home" style="width: 20px; height: 20px; vertical-align: middle;">
+                Home
+            </a>
+        </div>
+         -->
+        <div class="sun-item item5">
+            <a href="Projects.html" style="text-decoration:none; color:white;">
+                <img src="./Img/mars.jpg" alt="Projects" style="width: 110px; height:100px; align-self:center; border-radius: 50%;">
+                Projects
+            </a>
+        </div>
+        <div class="sun-item item2">
+            <a href="Skills.html" style="text-decoration:none; color:white;">
+                <img src="path/to/skills-icon.png" alt="Skills" style="width: 20px; height: 20px; vertical-align: middle;">
+                Skills
+            </a>
+        </div>
+        <div class="sun-item item3">
+            <a href="About.html" style="text-decoration:none; color:white;">
+                <img src="./Img/earth.png" alt="About" style="width: 140px; height:100px; align-self:center; border-radius: 50%;">
+About
+            </a>
+        </div>
+        <div class="sun-item item4">
+            <a href="Contacts.html" style="text-decoration:none; color:white;">
+                <img src="./Img/starlink.jpg" alt="Contacts" style="width: 100px; height:90px; align-self:center; border-radius: 50%;">
+                Contacts
+            </a>
+        </div>
     </div>
+    
 
     <footer class="footer">
         <div class="footer-content">

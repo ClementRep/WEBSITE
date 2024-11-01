@@ -174,6 +174,15 @@
         .social-links a:hover {
             color: #007BFF; 
         }
+
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensures it stays in the background */
+        }
     </style>
 </head>
 <body>
@@ -187,6 +196,48 @@
         </ul>
       </div>
     
+      <canvas id="background-canvas"></canvas>
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+      
+      <script>
+        const scene = new THREE.Scene();
+        const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+        const spotLight = new THREE.SpotLight( 0xffffff );
+        spotLight.position.set( 100, 1000, 100 );
+  const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 5, 2000);
+  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("background-canvas") });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  
+  const loader = new THREE.GLTFLoader();
+  loader.load('./billions/voyage.glb', (gltf) => {
+      const model = gltf.scene;
+      scene.add(model);
+      scene.add(spotLight )
+      model.position.set(0, 0, 0); 
+  
+      function animate() {
+          requestAnimationFrame(animate);
+          model.rotation.y += 0.001; 
+          renderer.render(scene, camera);
+      }
+      animate();
+  }, undefined, (error) => {
+      console.error('An error happened while loading the model:', error);
+  });
+  
+  camera.position.z = 5;
+  
+  window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+  });
+  
+      </script>
+
     <h1>Contact Me</h1>
     <form action="mailto:tshwaraganangmaimane25@gmail.com" enctype="text/plain" method="post">
         <label for="name">Name:</label>

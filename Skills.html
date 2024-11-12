@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Skills</title>
     <style>
         :root {
@@ -147,6 +147,94 @@
          background-color: #007BFF
          ;
         }
+              
+#background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensures it stays in the background */
+        }
+
+        
+/*chatbot*/
+
+body { font-family: Arial, sans-serif; }
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-width: 90%;
+            margin-bottom:60px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+        }
+        .chatbot-header {
+            background: #723ae8;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .chatbot-messages {
+            height: 250px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .message {
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .user-message { 
+            background: #6a5acd;
+            color: white;
+            align-self: flex-end;
+        }
+        .bot-message { 
+            background: #e0e0e0;
+            color: #333;
+            align-self: flex-start;
+        }
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .chatbot-input input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .chatbot-input button {
+            background: #723ae8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .chatbot-toggler {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #723ae8;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -160,11 +248,54 @@
             <li><a href="Contacts.html">Contact</a></li>
         </ul>
       </div>
+
+
+
+      <canvas id="background-canvas"></canvas>
+
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+      
+      <script>
+        const scene = new THREE.Scene();
+        const light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
+  const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 5, 2000);
+  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("background-canvas") });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  
+  const loader = new THREE.GLTFLoader();
+  loader.load('./billions/jupiter_with_moons.glb', (gltf) => {
+      const model = gltf.scene;
+      scene.add(model);
+      scene.add( light )
+      model.position.set(0, 0, 0); 
+  
+      function animate() {
+          requestAnimationFrame(animate);
+          model.rotation.y += 0.001; 
+          renderer.render(scene, camera);
+      }
+      animate();
+  }, undefined, (error) => {
+      console.error('An error happened while loading the model:', error);
+  });
+  
+  camera.position.z = 5;
+  
+  window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+  });
+  
+      </script>
+
     <div class="skills">
         <div class="card">
             <h3>Soft Skills</h3>
             <ul>
-                <li>Communication</li>
+                <i class="fa-solid fa-tower-broadcast"></i><li>Communication</li>
                 <li>Teamwork</li>
                 <li>Problem-solving</li>
                 <li>Adaptability</li>
@@ -195,7 +326,66 @@
         </div>
     </div>
   
-</div>
+    <div class="chatbot" id="chat">
+        <i class="fa fa-message" aria-hidden="true"></i>
+    </div>
+
+
+
+    <div class="chatbot-container">
+        <div class="chatbot-header">Welcome My name is Steve The Bot</div>
+        <div class="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggler" onclick="toggleChatbot()">💬</button>
+
+    <script>
+        function toggleChatbot() {
+            const chatbotContainer = document.querySelector('.chatbot-container');
+            chatbotContainer.style.display = chatbotContainer.style.display === 'none' ? 'flex' : 
+            'none';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user-message');
+            userInput.value = '';
+
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, 'bot-message');
+            }, 500);
+        }
+
+        function addMessage(text, className) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', className);
+            messageElement.textContent = text;
+            document.querySelector('.chatbot-messages').appendChild(messageElement);
+            messageElement.scrollIntoView();
+        }
+
+        function getBotResponse(message) {
+            const responses = {
+     "hello": "Hello! Glad to see you here!",
+    "how are you": "I'm busy assisting you, but doing well, thank you!",
+"Tell me more about clement":"from the about me let me summarise, he Holds a diploma in systems development ,He holds two microsoft certications... i don't if you wanna know about the projects?",
+"yes":"ok he did web applications oh using reactjs....utilized libraries like 3js ...hopefully you can see this website also.",
+"how can reach him":"you can click contact page to send direct mail or check the footer there social links click any you will find him"
+            };
+        return responses[message.toLowerCase()] || "I dont understand please ask '1' Tell me more about clement 2.how can reach him";
+        }
+
+        // Initialize chatbot display to hidden
+        document.querySelector('.chatbot-container').style.display = 'none';
+    </script>
 
     <footer class="footer">
         <div class="footer-content">

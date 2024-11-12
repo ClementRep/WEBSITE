@@ -11,12 +11,13 @@
         :root {
             --platinum: #dcdcdd;
             --french-gray: #c5c3c6;
+            --french-gray2: #c5c3c670;
             --outer-space: #46494c;
             --paynes-gray: #4c5c68;
             --blue-munsell: #1985a1;
             --sun-color: #f39c12;
         }
-        
+
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -28,37 +29,42 @@
             justify-content: center;
             position: relative;
             animation: fadeIn 1s ease-in;
+            overflow: hidden;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensures it stays in the background */
+        }
+
         .Profilepic img {
             border-radius: 50%;
-            margin-top: -100px; /* Adjust positioning */
+            margin-top: -100px; 
         }
 
         .Text-intro {
-            text-align: center;
+        transform: translate(-100%,-70%);
             color: white;
             margin: 20px;
             animation: glow 1s ease-in-out infinite alternate;
         }
 
         @-webkit-keyframes glow {
-    from {
-        text-shadow: 0 0 10px #6a5acd, 0 0 20px #6a5acd, 0 0 30px #483d8b; /* Slate Blue shades */
-    }
-    to {
-        text-shadow: 0 0 20px #b0e0e6, 0 0 30px #b0e0e6; /* Powder Blue */
-    }
-}
-
+            from { text-shadow: 0 0 10px #6a5acd, 0 0 20px #6a5acd, 0 0 30px #483d8b; }
+            to { text-shadow: 0 0 20px #b0e0e6, 0 0 30px #b0e0e6; }
+        }
 
         .Text-intro h1 {
-            font-size: 2.5em; /* Responsive font size */
+            font-size: 2.5em;
         }
 
         .sidebar {
@@ -72,7 +78,7 @@
             align-items: center;
             cursor: pointer;
             transition: transform 0.5s ease;
-            margin-top: -30px; /* Adjust positioning */
+            margin-top: -30px;
             animation: fadeIn 1s ease-in;
         }
 
@@ -98,7 +104,7 @@
 
         .sidebar:hover .sun-item {
             opacity: 1;
-            box-shadow: 0 8px 30px rgb(9, 255, 1);
+            box-shadow: 0 8px 30px rgba(150, 128, 59, 0.87);
         }
 
         .item1 { transform: translate(0%, -240%); }
@@ -108,105 +114,146 @@
         .item5 { transform: translate(270%, 0%); }
 
         @media (max-width: 600px) {
-            .Text-intro h1 {
-                font-size: 1.8em; /* Smaller font size for mobile */
-            }
-
-            .sidebar {
-                width: 80px;
-                height: 80px;
-            }
-
-            .sun-item {
-                width: 50px;
-                height: 50px;
-            }
+            .Text-intro h1 { font-size: 1.8em; }
+            .sidebar { width: 80px; height: 80px; }
+            .sun-item { width: 50px; height: 50px; }
         }
 
         @media (max-width: 400px) {
-            .Text-intro h1 {
-                font-size: 1.5em; /* Even smaller font size for very small screens */
-            }
+            .Text-intro h1 { font-size: 1.5em; }
         }
 
-        /* Footer */
         .footer {
-            background-color: var(--french-gray);
-            color: #333;
+            opacity: 1;
+            background-color: var(--french-gray2);
+            color: #ffffff;
             padding: 20px;
-            text-align: center; 
-            border-top: 2px solid #ccc; 
+            text-align: center;
             position: absolute;
             bottom: 0;
             width: 100%;
         }
 
-        .footer-content {
-            margin: 0 auto; 
-        }
+        .footer-content { margin:15px; }
 
-        .footer p {
-            margin: 0; 
-        }
+        .footer p { margin: 0; }
 
         .social-links {
-            list-style-type: none; 
-            padding: 0; 
-            margin: 10px 0 0; 
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0 0;
             display: flex;
-            justify-content: center; 
+            color: white;
+            justify-content: center;
         }
 
-        .social-links li {
-            margin: 0 15px; 
-        }
+        .social-links li { margin: 0 15px; }
 
         .social-links a {
             text-decoration: none;
-            color: inherit; 
-            transition: color 0.3s; 
+            color: inherit;
+            transition: color 0.3s;
         }
 
-        .social-links a:hover {
-            color: #007BFF; 
-        }
+        .social-links a:hover { color: #007BFF; }
     </style>
 </head>
 <body>
+    
+    <canvas id="background-canvas"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <script>
+      const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(5, window.innerWidth / window.innerHeight, 5, 2000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("background-canvas") });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const loader = new THREE.GLTFLoader();
+loader.load('./billions/source/stars.glb', (gltf) => {
+    const model = gltf.scene;
+    scene.add(model);
+    model.position.set(0, 0, 0); 
+
+    function animate() {
+        requestAnimationFrame(animate);
+        model.rotation.y += 0.001; 
+        renderer.render(scene, camera);
+    }
+    animate();
+}, undefined, (error) => {
+    console.error('An error happened while loading the model:', error);
+});
+
+camera.position.z = 5;
+
+window.addEventListener('resize', () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+});
+
+    </script>
 
     <div class="Profilepic">
         <img src="IMGG.jpg" width="200px" height="200px" alt="Profile Picture">
     </div> 
 
+
     <div class="Text-intro">
-        <h1>
-            Welcome! I'm Clement,<br>
-            a dedicated Developer<br>
-            creating impactful digital experiences.
-        </h1>
+        <h1>Greetings, Earthling!<br></h1>
+
+           <p style="font-size: 1.4em;">I’m Clement, a cosmic <br>Developer
+            crafting stellar <br>digital experiences that <br> transcend the ordinary.
+            <br>Join me on this journey <br>through the digital cosmos!</p> 
     </div>
+  
     
     <div class="sidebar" id="sun" tabindex="0">
         <i class="fa fa-sun" aria-hidden="true" style="color: white; font-size: 30px;"></i>
-        <div class="sun-item item1"><a href="#Home" style="text-decoration:none; color:white;">Home</a></div>
-        <div class="sun-item item5"><a href="Projects.html" style="text-decoration:none; color:white;">Projects</a></div>
-        <div class="sun-item item2"><a href="Skills.html" style="text-decoration:none; color:white;">Skills</a></div>
-        <div class="sun-item item3"><a href="About.html" style="text-decoration:none; color:white;">About</a></div>
-        <div class="sun-item item4"><a href="Contacts.html" style="text-decoration:none; color:white;">Contacts</a></div>
+ <!--       <div class="sun-item item1">
+            <a href="#Home" style="text-decoration:none; color:white;">
+                <img src="path/to/home-icon.png" alt="Home" style="width: 20px; height: 20px; vertical-align: middle;">
+                Home
+            </a>
+        </div>
+         -->
+        <div class="sun-item item5">
+            <a href="Projects.html" style="text-decoration:none; color:white;">
+                <img src="./Img/mars.jpg" alt="Projects" style="width: 110px; height:100px; align-self:center; border-radius: 50%;">
+                Projects
+            </a>
+        </div>
+        <div class="sun-item item2">
+            <a href="Skills.html" style="text-decoration:none; color:white;">
+                <img src="./Img/jupiter.jpg" alt="Skills" style="width: 140px; height:120px; align-self:center; border-radius: 50%;">
+                Skills
+            </a>
+        </div>
+        <div class="sun-item item3">
+            <a href="About.html" style="text-decoration:none; color:white;">
+                <img src="./Img/earth.png" alt="About" style="width: 140px; height:100px; align-self:center; border-radius: 50%;">
+About
+            </a>
+        </div>
+        <div class="sun-item item4">
+            <a href="Contacts.html" style="text-decoration:none; color:white;">
+                <img src="./Img/starlink.jpg" alt="Contacts" style="width: 100px; height:90px; align-self:center; border-radius: 50%;">
+                Contacts
+            </a>
+        </div>
     </div>
+    
 
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024 Clement. All rights reserved.</p>
             <ul class="social-links">
-                <li><a href="https://www.facebook.com/tshwaraxmaimane" target="_blank">
-                    <i class="fa fa-facebook-official" aria-hidden="true"></i> &nbsp Facebook</a></li>
-                <li><a href="https://www.linkedin.com/in/tshwaraganang-clement-maimane-231b7a1b7" target="_blank">
-                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>&nbsp
-                 LinkedIn</a></li>
-                 <li><a href="https://github.com/ClementRep/" target="_blank"> &nbsp
-                    <i class="fa fa-github" aria-hidden="true"></i>
-                     GitHub</a></li>
+                <li><a href="https://www.facebook.com/tshwaraxmaimane" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i> &nbsp Facebook</a></li>
+                <li><a href="https://www.linkedin.com/in/tshwaraganang-clement-maimane-231b7a1b7" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i>&nbsp LinkedIn</a></li>
+                <li><a href="https://github.com/ClementRep/" target="_blank"> &nbsp<i class="fa fa-github" aria-hidden="true"></i>GitHub</a></li>
             </ul>
         </div>
     </footer>
